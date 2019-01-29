@@ -74,8 +74,9 @@ app.post('/hook', function(req, res){
             sendTelegramMessage(chatId, "Your chat is *offline* now and it won't be shown for new users", "Markdown");
         }
 
-        if (text.startsWith("/all ") && text){
-            const message = text.replace("/all ", "");
+        if (text.startsWith("/all") && text) {
+            const message = text.replace(/^\/all(@?\w+)? /, "");
+            console.log("/all " + message);
             io.emit(chatId, {
                 name: name,
                 text: message,
